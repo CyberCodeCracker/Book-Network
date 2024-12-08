@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/book_network
-    username: username
-    password: password
+    username: postgres
+    password: admin
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -36,3 +36,5 @@ spring:
     mailing:
       frontend:
         activation-url: http://localhost:4200/activate-account
+server:
+  port: 8088

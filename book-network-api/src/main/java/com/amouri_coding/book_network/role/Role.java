@@ -31,7 +31,7 @@ public class Role {
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime updatedAt;
