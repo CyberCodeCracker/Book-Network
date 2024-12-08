@@ -1,5 +1,6 @@
 package com.amouri_coding.book_network.security;
 
+import com.amouri_coding.book_network.user.User;
 import com.amouri_coding.book_network.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-        return userRepository.findByEmail(userEmail)
+        System.out.println("Loading user by email: " + userEmail);
+        User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new UsernameNotFoundException(userEmail + " not found."));
+        return user;
     }
 }
