@@ -1,5 +1,7 @@
 package com.amouri_coding.book_network.user;
 
+import com.amouri_coding.book_network.book.Book;
+import com.amouri_coding.book_network.history.BookTransactionHistory;
 import com.amouri_coding.book_network.role.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -44,6 +46,12 @@ public class User implements UserDetails, Principal {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Book> books;
+
+    @OneToMany(mappedBy = "user")
+    private List<BookTransactionHistory> histories;
 
     @CreatedDate
     @Column(updatable = false, nullable = false)
