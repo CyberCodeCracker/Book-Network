@@ -1,4 +1,4 @@
-package com.amouri_coding.book_network.book;
+package com.amouri_coding.book_network.feedback;
 
 import com.amouri_coding.book_network.common.BaseEntity;
 import jakarta.persistence.Entity;
@@ -14,14 +14,9 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-public class Book extends BaseEntity {
+public class Feedback extends BaseEntity {
 
-    private String title;
-    private String authorName;
-    private String isbn;
-    private String synopsis;
-    private String bookCover;
-    private boolean archived;
-    private boolean shareable;
+    private Double note;
+    private String comment;
 
 }
