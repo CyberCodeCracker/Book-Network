@@ -1,5 +1,6 @@
 package com.amouri_coding.book_network.book;
 
+import com.amouri_coding.book_network.history.BookTransactionHistory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +32,19 @@ public class BookMapper {
                 .archived(book.isArchived())
                 .owner(book.getOwner().fullName())
                 // .cover
+                .build()
+                ;
+    }
+
+    public BorrowedBookResponse toBorrowedBookResponse(BookTransactionHistory history) {
+        return BorrowedBookResponse.builder()
+                .id(history.getBook().getId())
+                .title(history.getBook().getTitle())
+                .authorName(history.getBook().getAuthorName())
+                .isbn(history.getBook().getIsbn())
+                .rate(history.getBook().getRating())
+                .returned(history.isReturned())
+                .returned(history.isReturnApproved())
                 .build()
                 ;
     }
