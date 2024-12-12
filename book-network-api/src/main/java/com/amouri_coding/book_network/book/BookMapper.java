@@ -18,4 +18,20 @@ public class BookMapper {
                 .build()
                 ;
     }
+
+    public BookResponse toBookResponse(Book book) {
+        return BookResponse.builder()
+                .id(book.getId())
+                .title(book.getTitle())
+                .authorName(book.getAuthorName())
+                .isbn(book.getIsbn())
+                .synopsis(book.getSynopsis())
+                .rate(book.getRating())
+                .shareable(book.isShareable())
+                .archived(book.isArchived())
+                .owner(book.getOwner().fullName())
+                // .cover
+                .build()
+                ;
+    }
 }
