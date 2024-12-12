@@ -1,5 +1,6 @@
 package com.amouri_coding.book_network.book;
 
+import com.amouri_coding.book_network.common.PageResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -31,5 +32,11 @@ public class BookController {
     }
 
     @GetMapping
-    public ResponseEntity<List>
+    public ResponseEntity<PageResponse<BookResponse>> findAllBooks(
+            @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+            Authentication connectedUser
+    ) {
+        return ResponseEntity.ok(service.findAllBooks(page, size, connectedUser));
+    }
 }
