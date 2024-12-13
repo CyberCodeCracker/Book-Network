@@ -1,6 +1,7 @@
 package com.amouri_coding.book_network.book;
 
 import com.amouri_coding.book_network.common.PageResponse;
+import com.amouri_coding.book_network.exception.OperationNotPermittedException;
 import com.amouri_coding.book_network.history.BookTransactionHistory;
 import com.amouri_coding.book_network.history.BookTransactionHistoryRepository;
 import com.amouri_coding.book_network.user.User;
@@ -14,6 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -110,5 +112,17 @@ public class BookService {
                 allReturnedBooks.isFirst(),
                 allReturnedBooks.isLast()
         );
+    }
+
+    public Integer updateBookShareableStatus(Integer bookId, Authentication connectedUser) {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new EntityNotFoundException("Book associated with " + bookId + " was not found."));
+        User user = ((User) connectedUser.getPrincipal());
+        if (!Objects.equals(book.getOwner().getId(), user.getId())) {
+            throw new OperationNotPermittedException("You cannot upadate the shareable status of books you don't own.");
+        }
+        book.setShareable(!book.isShareable());
+        bookRepository.save(book);
+        return bookId;
     }
 }
