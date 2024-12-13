@@ -24,6 +24,7 @@ public class BookService {
     private final BookRepository bookRepository;
     private final BookTransactionHistoryRepository bookTransactionHistoryRepository;
     private final BookMapper bookMapper;
+    private final BookController bookController;
 
     public Integer save(BookRequest request, Authentication connectedUser) {
         User user = ((User) connectedUser.getPrincipal());
@@ -119,9 +120,21 @@ public class BookService {
                 .orElseThrow(() -> new EntityNotFoundException("Book associated with " + bookId + " was not found."));
         User user = ((User) connectedUser.getPrincipal());
         if (!Objects.equals(book.getOwner().getId(), user.getId())) {
-            throw new OperationNotPermittedException("You cannot upadate the shareable status of books you don't own.");
+            throw new OperationNotPermittedException("You cannot update the shareable status of a book that you don't own.");
         }
         book.setShareable(!book.isShareable());
+        bookRepository.save(book);
+        return bookId;
+    }
+
+    public Integer updateBookArchivedStatus(Integer bookId, Authentication connectedUser) {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new EntityNotFoundException("Book associated with " + bookId + " was not found."));
+        User user = ((User) connectedUser.getPrincipal());
+        if (!Objects.equals(book.getOwner().getId(), user.getId())) {
+            throw new OperationNotPermittedException("You cannot update the archived status of a book that you don't own.");
+        }
+        book.setArchived(!book.isArchived());
         bookRepository.save(book);
         return bookId;
     }
