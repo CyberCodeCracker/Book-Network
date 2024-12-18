@@ -9,7 +9,7 @@ import java.util.Objects;
 @Service
 public class FeedbackMapper {
 
-    public static Feedback toFeedback(@Valid FeedbackRequest request) {
+    public Feedback toFeedback(@Valid FeedbackRequest request) {
         return Feedback.builder()
                 .note(request.note())
                 .comment(request.comment())
