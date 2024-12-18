@@ -1,5 +1,6 @@
 package com.amouri_coding.book_network.book;
 
+import com.amouri_coding.book_network.file.FileUtils;
 import com.amouri_coding.book_network.history.BookTransactionHistory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class BookMapper {
                 .shareable(book.isShareable())
                 .archived(book.isArchived())
                 .owner(book.getOwner().fullName())
-                // .cover
+                .bookCover(FileUtils.readFileFromLocation(book.getBookCover()))
                 .build()
                 ;
     }
