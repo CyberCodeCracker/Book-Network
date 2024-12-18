@@ -2,6 +2,7 @@ package com.amouri_coding.book_network.book;
 
 import com.amouri_coding.book_network.common.PageResponse;
 import com.amouri_coding.book_network.exception.OperationNotPermittedException;
+import com.amouri_coding.book_network.file.FileStorageService;
 import com.amouri_coding.book_network.history.BookTransactionHistory;
 import com.amouri_coding.book_network.history.BookTransactionHistoryRepository;
 import com.amouri_coding.book_network.user.User;
@@ -13,7 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,7 +27,7 @@ public class BookService {
     private final BookRepository bookRepository;
     private final BookTransactionHistoryRepository bookTransactionHistoryRepository;
     private final BookMapper bookMapper;
-    private final BookController bookController;
+    private final FileStorageService fileStorageService;
 
     public Integer save(BookRequest request, Authentication connectedUser) {
         User user = ((User) connectedUser.getPrincipal());
@@ -192,5 +195,14 @@ public class BookService {
         BookTransactionHistory bookTransactionHistory = bookTransactionHistoryRepository.findByBookIdAndOwnerId(bookId, user.getId())
                 .orElseThrow(() -> new OperationNotPermittedException("You did not returned yet, you can't approve it's return."));
         return bookTransactionHistoryRepository.save(bookTransactionHistory).getId();
+    }
+
+    public void uploadBookCoverPicture(MultipartFile file, Authentication connectedUser, Integer bookId) throws IOException {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new EntityNotFoundException("Book associated with " + bookId + " was not found."));
+        User user = ((User) connectedUser.getPrincipal());
+        var bookCoverPicture = fileStorageService.saveFile(file, user.getId());
+        book.setBookCover(bookCoverPicture);
+        bookRepository.save(book);
     }
 }
