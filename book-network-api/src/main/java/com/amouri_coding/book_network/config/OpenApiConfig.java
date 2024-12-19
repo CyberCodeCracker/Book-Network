@@ -13,43 +13,41 @@ import io.swagger.v3.oas.annotations.servers.Server;
 @OpenAPIDefinition(
         info = @Info(
                 contact = @Contact(
-                        name = "Amouri",
-                        email = "souhailamouri123@gmail.com",
-                        url = "https://cybercodecracker.github.io/Portfolio-Website/"
+                        name = "Souhail",
+                        email = "contact@amouricoding.com"
                 ),
-                description = "OpenApi documentation for Spring security",
-                title = "OpenApi specification - Amouri",
+                description = "Openapi documentation for Spring security",
+                title = "OpenApi specification - Souhail",
                 version = "1.0",
                 license = @License(
-                        name = "Licence",
-                        url = "https://license.com"
+                        name = "License name",
+                        url = "https://some-url.com"
                 ),
                 termsOfService = "Terms of service"
         ),
         servers = {
                 @Server(
-                        description = "LOCAL ENV",
+                        description = "Local ENV",
                         url = "http://localhost:8088/api/v1"
                 ),
                 @Server(
-                        description = "PROD ENV",
-                        url = "https://cybercodecracker.github.io/Portfolio-Website/"
+                        description = "Prod ENV",
+                        url = "https://amouricoding.com/testing"
                 )
         },
         security = {
                 @SecurityRequirement(
-                        name = "bearerAuth"
+                        name = "bearerAuthentication"
                 )
         }
 )
 @SecurityScheme(
-        name = "bearerAuth",
+        name = "bearerAuthentication",
         description = "JWT auth description",
         scheme = "bearer",
         type = SecuritySchemeType.HTTP,
         bearerFormat = "JWT",
         in = SecuritySchemeIn.HEADER
 )
-
 public class OpenApiConfig {
 }
