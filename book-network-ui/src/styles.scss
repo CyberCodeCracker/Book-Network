@@ -2,9 +2,21 @@
 @import  "bootstrap/dist/css/bootstrap.min.css";
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  background-image: url("assets/images/bg.webp") !important;
+  background-size: cover;
+}
+
 .login-container {
   width: 800px !important;
   margin-top: 15%;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 

@@ -8,12 +8,9 @@ public record FeedbackRequest(
         @Max(value = 5 , message = "202")
         Double note,
         @NotNull(message = "203")
-        @NotEmpty(message = "203")
         @NotBlank(message = "203")
         String comment,
         @NotNull(message = "204")
-        @NotEmpty(message = "204")
-        @NotBlank(message = "204")
         Integer bookId
 ) {
 }
