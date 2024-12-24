@@ -13,7 +13,7 @@ export class MyBooksComponent implements OnInit {
 
   bookResponse: PageResponseBookResponse = {};
   page: number = 0;
-  size: number = 5;
+  size: number = 4;
 
   constructor(
     private bookService: BookService,
@@ -66,11 +66,23 @@ export class MyBooksComponent implements OnInit {
   }
 
   archiveBook(book: BookResponse) {
-
+    this.bookService.updateBookArchivedStatus({
+      'book-id': book.id as number
+    }).subscribe({
+      next: () => {
+        book.archived = !book.archived;
+      }
+    })
   }
 
   shareBook(book: BookResponse) {
-
+    this.bookService.updateBookShareableStatus({
+      'book-id': book.id as number
+    }).subscribe({
+      next: () => {
+        book.shareable = !book.shareable;
+      }
+    })
   }
 
   editBook(book: BookResponse) {
