@@ -18,8 +18,7 @@ export class BookListComponent implements OnInit {
   messageType: string = "";
 
   constructor(
-    private bookService: BookService,
-    private router: Router
+    private bookService: BookService
   ) {
   }
 
@@ -66,7 +65,6 @@ export class BookListComponent implements OnInit {
   get isLastPage(): boolean {
     return this.page == this.bookResponse.totalPages as number - 1;
   }
-
 
   borrowBook(book: BookResponse) {
     this.message = "";
