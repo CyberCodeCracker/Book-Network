@@ -3,11 +3,10 @@
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 
 body {
-  height: 100%;
-  width: 100%;
   margin: 0 auto;
   background-image: url("assets/images/bg.webp") !important;
   background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .login-container {

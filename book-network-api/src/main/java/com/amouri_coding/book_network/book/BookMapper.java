@@ -46,7 +46,7 @@ public class BookMapper {
                 .isbn(history.getBook().getIsbn())
                 .rate(history.getBook().getRating())
                 .returned(history.isReturned())
-                .returned(history.isReturnApproved())
+                .returnApproved(history.isReturnApproved())
                 .build()
                 ;
     }

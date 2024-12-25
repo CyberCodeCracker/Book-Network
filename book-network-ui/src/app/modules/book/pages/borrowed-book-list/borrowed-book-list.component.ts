@@ -4,6 +4,7 @@ import {PageResponseBorrowedBookResponse} from "../../../../services/models/page
 import {BookService} from "../../../../services/services/book.service";
 import {FeedbackRequest} from "../../../../services/models/feedback-request";
 import {FeedbackService} from "../../../../services/services/feedback.service";
+import {BookResponse} from "../../../../services/models/book-response";
 
 @Component({
   selector: 'app-borrowed-book-list',
@@ -16,7 +17,7 @@ export class BorrowedBookListComponent implements OnInit {
   feedbackRequest: FeedbackRequest = {bookId: 0, comment: "", note: 0};
   page: number = 0;
   size: number = 4;
-  selectedBook: BorrowedBookResponse | undefined= undefined;
+  selectedBook: BorrowedBookResponse | undefined = undefined;
 
   constructor(
     private bookService: BookService,
@@ -28,11 +29,12 @@ export class BorrowedBookListComponent implements OnInit {
     this.findAllBorrowedBooks();
   }
 
-
   returnBorrowedBook(book: BorrowedBookResponse) {
     this.selectedBook = book;
     this.feedbackRequest.bookId = book.id as number;
     console.log(this.feedbackRequest.bookId);
+    console.log(book.id);
+    console.log(book.returned);
   }
 
   private findAllBorrowedBooks() {
