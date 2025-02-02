@@ -6,7 +6,7 @@ on:
       - ci/pipeline
     # Triggers pipeline backend when changes are performed in the specific paths
     paths:
-      - book-network/**
+      - book-network-api/**
       - docker/backend/**
       - 'docker-compose.yml'
       - .github/workflows/*-backend.yml
