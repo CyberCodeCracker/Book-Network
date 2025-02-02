@@ -90,7 +90,7 @@ jobs:
           java-version: 17
           distribution: 'corretto'
 
-      - name: Extract project version
+      - name: Extract project
         id: extract_version
         run: |
           cd book-network-api
