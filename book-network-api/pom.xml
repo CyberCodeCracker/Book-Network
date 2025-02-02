@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.amouri-coding</groupId>
 	<artifactId>book-network</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.0</version>
 	<name>book-network-api</name>
 	<description>Spring Boot project for book social network</description>
 	<url/>
@@ -111,6 +111,23 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>3.1.0</version>  <executions>
+				<execution>
+					<id>echo-version</id>
+					<phase>validate</phase> <goals>
+					<goal>exec</goal>  </goals>
+					<configuration>
+						<executable>echo</executable>
+						<arguments>
+							<argument>${project.version}</argument>
+						</arguments>
+					</configuration>
+				</execution>
+			</executions>
 			</plugin>
 		</plugins>
 	</build>
