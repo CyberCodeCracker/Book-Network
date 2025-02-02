@@ -21,7 +21,7 @@ jobs:
         with:
           fetch-depth: 0  # Checkouts current branch only
 
-      - name: Setup JDK
+      - name: Setup JAVA JDK
         uses: actions/setup-jdk@v4
         with:
           java-version: 17
