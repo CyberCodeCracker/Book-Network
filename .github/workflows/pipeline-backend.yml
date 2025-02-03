@@ -28,7 +28,7 @@ jobs:
           distribution: 'corretto'
 
       - name: Make mvnw executable
-        run: chmod +x ./mvnw
+        run: chmod +x ../../book-network-api/mvnw
 
       - name: Compile project
         run: |
@@ -50,7 +50,7 @@ jobs:
           distribution: 'corretto'
 
       - name: Make mvnw executable
-        run: chmod +x ./mvnw
+        run: chmod +x ../../book-network-api/mvnw
 
       - name: Running units Tests
         run: |
@@ -74,7 +74,7 @@ jobs:
           distribution: 'corretto'
 
       - name: Make mvnw executable
-        run: chmod +x ./mvnw
+        run: chmod +x ../../book-network-api/mvnw
 
       - name: Build Project
         run: |
@@ -100,7 +100,7 @@ jobs:
           distribution: 'corretto'
 
       - name: Make mvnw executable
-        run: chmod +x ./mvnw
+        run: chmod +x ../../book-network-api/mvnw
 
       - name: Extract project version
         id: extract_version
