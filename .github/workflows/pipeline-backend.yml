@@ -3,7 +3,7 @@ name: BSN Backend API Pipeline
 on:
   push:
     branches:
-      - ci/pipeline
+      - ci-cd
     # Triggers pipeline backend when changes are performed in the specific paths
     paths:
       - book-network-api/**
@@ -67,7 +67,7 @@ jobs:
           java-version: 17
           distribution: 'corretto'
 
-      - name: Build roject
+      - name: Build Project
         run: |
           cd book-network-api 
           .\mvnw clean package

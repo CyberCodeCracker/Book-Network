@@ -3,7 +3,7 @@ name: BSN Frontend API Pipeline
 on:
   push:
     branches:
-      - ci/pipeline
+      - ci-cd
     # Triggers pipeline backend when changes are performed in the specific paths
     paths:
       - book-network-ui/**
