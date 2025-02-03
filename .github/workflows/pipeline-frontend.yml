@@ -13,7 +13,7 @@ on:
 
 jobs:
   build-image:
-    name: Build Frontnd Docker image
+    name: Build Frontend Docker image
     runs-on: self-hosted
     steps:
       - name: Checkout code
@@ -44,23 +44,23 @@ jobs:
             PROFILE=dev
             APP_VERSION=${{ steps.extract_version.outputs.VERSION }}
 
-    deploy:
-      name: Deploy Frontend
-      runs-on: self-hosted
-      needs: [build-image]
-      steps:
-        - name: Create deployment folder
-          run: ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "mkdir -p ci-cd"
+  deploy:
+    name: Deploy Frontend
+    runs-on: self-hosted
+    needs: [build-image]
+    steps:
+      - name: Create deployment folder
+        run: ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "mkdir -p ci-cd"
 
-        - name: Copy docker-compose file
-          run: scp docker-compose.yml ${{ secrets.VPS_USERNAME }}@{{ secrets.VPS_IP }}:ci-cd/docker-compose.yml
+      - name: Copy docker-compose file
+        run: scp docker-compose.yml ${{ secrets.VPS_USERNAME }}@{{ secrets.VPS_IP }}:ci-cd/docker-compose.yml
 
-        - name: Set ENV variables and deploy
-          run: |
-            ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} <<EOF 
-            cd ci-cd
-            docker-compose -f docker-compose.yml pull -q
-            docker-compose -f docker-compose.yml up -d
-            EOF
+      - name: Set ENV variables and deploy
+        run: |
+          ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} <<EOF 
+          cd ci-cd
+          docker-compose -f docker-compose.yml pull -q
+          docker-compose -f docker-compose.yml up -d
+          EOF
           
 
