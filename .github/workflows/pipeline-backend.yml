@@ -27,6 +27,9 @@ jobs:
           java-version: 17
           distribution: 'corretto'
 
+      - name: Make mvnw executable
+        run: chmod +x ./mvnw
+
       - name: Compile project
         run: |
           cd book-network-api 
@@ -45,6 +48,9 @@ jobs:
         with:
           java-version: 17
           distribution: 'corretto'
+
+      - name: Make mvnw executable
+        run: chmod +x ./mvnw
 
       - name: Running units Tests
         run: |
@@ -66,6 +72,9 @@ jobs:
         with:
           java-version: 17
           distribution: 'corretto'
+
+      - name: Make mvnw executable
+        run: chmod +x ./mvnw
 
       - name: Build Project
         run: |
@@ -89,6 +98,9 @@ jobs:
         with:
           java-version: 17
           distribution: 'corretto'
+
+      - name: Make mvnw executable
+        run: chmod +x ./mvnw
 
       - name: Extract project version
         id: extract_version
