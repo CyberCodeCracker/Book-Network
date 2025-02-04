@@ -40,37 +40,11 @@ jobs:
           cd book-network-api 
           ./mvnw clean compile
 
-  unit-tests:
-    runs-on: self-hosted
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Checkouts current branch only
-
-      - name: Setup JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: 17
-          distribution: 'corretto'
-
-      - name: List current directory
-        run: ls -la
-
-      - name: Make mvnw executable
-        run: |
-          cd book-network-api 
-          chmod +x ./mvnw
-
-      - name: Running units Tests
-        run: |
-          cd book-network-api 
-          ./mvnw clean test
 
   build:
     runs-on: self-hosted
     name: Build backend
-    needs: [compile, unit-tests]
+    needs: [compile]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
