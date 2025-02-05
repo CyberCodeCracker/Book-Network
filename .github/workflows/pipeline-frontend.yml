@@ -64,7 +64,7 @@ jobs:
       - name: Copy docker-compose file
         run: scp docker-compose.yml ${{ secrets.VPS_USERNAME }}@{{ secrets.VPS_IP }}:ci-cd/docker-compose.yml
 
-      - name: Set ENV variables and deploy
+      - name: Set ENV Variables and deploy
         run: |
           ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} <<EOF 
           cd ci-cd
