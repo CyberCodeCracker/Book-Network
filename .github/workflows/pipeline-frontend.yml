@@ -53,13 +53,9 @@ jobs:
     needs: [build-image]
     steps:
 
-      - name: Add deployment server to known_hosts
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -H ${{ secrets.VPS_IP }} >> ~/.ssh/known_hosts  
-
       - name: Create deployment folder
-        run: ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "mkdir -p ci-cd"
+        run: ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "mkdir -p ci-cd"
+
 
       - name: Copy docker-compose file
         run: scp docker-compose.yml ${{ secrets.VPS_USERNAME }}@{{ secrets.VPS_IP }}:ci-cd/docker-compose.yml
