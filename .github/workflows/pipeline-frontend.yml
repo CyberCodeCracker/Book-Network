@@ -53,7 +53,7 @@ jobs:
     needs: [build-image]
     steps:
 
-      - name: Set up SSH agent
+      - name: Set up SSH Agent
         uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.VPS_PRIVATE_KEY }}
