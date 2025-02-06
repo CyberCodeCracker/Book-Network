@@ -58,12 +58,11 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.VPS_PRIVATE_KEY }}
 
-      - name: Check remote user and path
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "whoami && pwd && ls -la"
+      - name: Debug
+        run: ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "echo \$HOME"
 
-      - name: Create deployment folder
-        run: ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "/bin/bash -c 'mkdir -p ci-cd'"
+      - name: Create folder
+        run: ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "cd \$HOME && mkdir -p ci-cd"
 
       - name: Copy Docker-Compose File
         run: scp docker-compose.yml ${{ secrets.VPS_USERNAME }}@{{ secrets.VPS_IP }}:ci-cd/docker-compose.yml
