@@ -62,6 +62,8 @@ jobs:
 
       - name: Copy Docker-Compose File
         run: |
+          pwd
+          ls -la
           scp -o StrictHostKeyChecking=no docker-compose.yml ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }}:actions-runner/ci-cd/
           ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "cd actions-runner/ci-cd && docker-compose pull -q && docker-compose up -d"
 
