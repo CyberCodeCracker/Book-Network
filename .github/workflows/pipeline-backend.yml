@@ -8,7 +8,7 @@ on:
     paths:
       - book-network/**
       - docker/backend/**
-      - 'docker-compose.yml'
+      - '../../docker-compose.yml'
       - .github/workflows/*-backend.yml
 
 jobs:

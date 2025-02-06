@@ -8,7 +8,7 @@ on:
     paths:
       - book-network-ui/**
       - docker/frontend/**
-      - 'docker-compose.yml'
+      - '../../docker-compose.yml'
       - .github/workflows/*-frontend.yml
 
 jobs:
