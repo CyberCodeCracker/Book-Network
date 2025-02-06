@@ -14,7 +14,7 @@ on:
 jobs:
   compile:
     runs-on: self-hosted
-    name: Compile project
+    name: Compile Project
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
