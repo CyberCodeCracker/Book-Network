@@ -60,12 +60,16 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.VPS_PRIVATE_KEY }}
 
-      - name: Copy Docker-Compose File
+      - name: Copy Docker-Compose File to Target Directory
         run: |
-          pwd
-          ls -la
-          scp -o StrictHostKeyChecking=no docker-compose.yml ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }}:/home/github-runner/actions-runner/ci-cd
-          ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "cd actions-runner/ci-cd && docker-compose pull -q && docker-compose up -d"
+          mkdir -p ~/actions-runner/ci-cd
+          cp docker-compose.yml ~/actions-runner/ci-cd/
+
+      - name: Deploy Containers
+        run: |
+          cd ~/actions-runner/ci-cd
+          docker-compose pull -q
+          docker-compose up -d
 
       - name: Set ENV Variables And Deploy
         run: |
