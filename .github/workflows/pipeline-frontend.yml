@@ -13,7 +13,7 @@ on:
 
 jobs:
   build-image:
-    name: Build frontend Docker image
+    name: Build frontend Docker Image
     runs-on: self-hosted
     steps:
       - name: Checkout code
