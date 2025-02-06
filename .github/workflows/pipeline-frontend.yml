@@ -59,7 +59,7 @@ jobs:
           ssh-private-key: ${{ secrets.VPS_PRIVATE_KEY }}
 
       - name: Create deployment folder
-        run: ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "mkdir -p ci-cd"
+        run: ssh -o StrictHostKeyChecking=no ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "/bin/bash -c 'mkdir -p ci-cd'"
 
       - name: Copy Docker-Compose File
         run: scp docker-compose.yml ${{ secrets.VPS_USERNAME }}@{{ secrets.VPS_IP }}:ci-cd/docker-compose.yml
