@@ -52,6 +52,8 @@ jobs:
     runs-on: self-hosted
     needs: [build-image]
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Set Up SSH Agent
         uses: webfactory/ssh-agent@v0.5.4
