@@ -62,9 +62,6 @@ jobs:
           mkdir -p ~/actions-runner/ci-cd
           cp docker-compose.yml ~/actions-runner/ci-cd/
 
-      - name: Docker compose version
-        run: docker compose version
-
       - name: Deploy Containers
         run: |
           cd ~/actions-runner/ci-cd
