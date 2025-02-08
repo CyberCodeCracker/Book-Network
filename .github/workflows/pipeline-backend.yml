@@ -30,7 +30,7 @@ jobs:
       - name: List current directory
         run: ls -la
 
-      - name: Make mvnw executable
+      - name: Make mvnw Executable
         run: |
           cd book-network-api 
           chmod +x ./mvnw
