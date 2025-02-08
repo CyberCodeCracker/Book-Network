@@ -160,11 +160,15 @@ jobs:
     runs-on: self-hosted
     needs: [build-image]
     steps:
-      - name: Create Deployment folder
-        run: ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "mkdir -p ci-cd"
+      - name: Set Up SSH Agent
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.VPS_PRIVATE_KEY }}
 
-      - name: Copy docker-compose file
-        run: scp docker-compose.yml ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }}:ci-cd/docker-compose.yml
+      - name: Copy Docker-Compose File to Target Directory
+        run: |
+          mkdir -p ~/actions-runner/ci-cd
+          cp docker-compose.yml ~/actions-runner/ci-cd/
 
       - name: Set ENV variables and deploy
         run: |
@@ -173,6 +177,6 @@ jobs:
           export EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME }}
           export EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}
           cd ci-cd
-          docker-compose -f docker-compose.yml pull -q
-          docker-compose -f docker-compose.yml up -d
+          docker compose -f docker-compose.yml pull -q
+          docker compose -f docker-compose.yml up -d
           EOF
