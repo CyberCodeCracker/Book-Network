@@ -37,7 +37,7 @@ jobs:
 
       - name: Running Unit Tests
         run: |
-          cd book-network
+          cd book-network-api
           ./mvnw clean compile
 
   unit-tests:
@@ -63,7 +63,7 @@ jobs:
   build:
     runs-on: self-hosted
     name: Build backend
-    needs: [compile]
+    needs: [compile, unit-tests]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -81,10 +81,10 @@ jobs:
           cd book-network-api 
           chmod +x ./mvnw
 
-      - name: Build Project
+      - name: Compile project
         run: |
-          cd book-network-api 
-          ./mvnw clean package
+          cd book-network-api
+          ./mvnw clean compile
 
   build-image:
     name: Build Docker image
