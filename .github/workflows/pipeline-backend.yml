@@ -57,7 +57,7 @@ jobs:
 
       - name: Running Unit Tests
         run: |
-          cd book-network
+          cd book-network-api
           ./mvnw clean test
 
   build:
