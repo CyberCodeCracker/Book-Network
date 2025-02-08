@@ -68,8 +68,8 @@ jobs:
       - name: Deploy Containers
         run: |
           cd ~/actions-runner/ci-cd
-          docker-compose pull -q
-          docker-compose up -d
+          docker compose pull -q
+          docker compose up -d
 
       - name: Set ENV Variables And Deploy
         run: |
