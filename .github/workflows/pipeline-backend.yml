@@ -40,6 +40,10 @@ jobs:
   unit-tests:
     runs-on: self-hosted
     name: Unit tests
+    env:
+      EMAIL_HOST_NAME: ${{ secrets.EMAIL_HOST_NAME }}
+      EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
+      EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -150,9 +154,9 @@ jobs:
       - name: Set ENV variables and deploy
         run: |
           ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} <<EOF
-          export EMAIL_HOSTNAME$={{ secrets.EMAIL_HOST_NAME }}
-          export EMAIL_USERNAME$={{ secrets.EMAIL_USERNAME }}
-          export EMAIL_PASSWORD$={{ secrets.EMAIL_PASSWORD }}
+          export EMAIL_HOST_NAME=${{ secrets.EMAIL_HOST_NAME }}
+          export EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME }}
+          export EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}
           cd ci-cd
           docker-compose -f docker-compose.yml pull -q
           docker-compose -f docker-compose.yml up -d
