@@ -122,7 +122,7 @@ jobs:
     runs-on: self-hosted
     needs: [build-image]
     steps:
-      - name: Create deployment folder
+      - name: Create Deployment folder
         run: ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} "mkdir -p ci-cd"
 
       - name: Copy docker-compose file
