@@ -40,6 +40,21 @@ jobs:
   unit-tests:
     runs-on: self-hosted
     name: Unit tests
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: admin
+          POSTGRES_DB: book_network
+        ports:
+          - 5432:5432
+        # Health checks ensure the service is ready before tests run.
+        options: >-
+          --health-cmd="pg_isready -U postgres" 
+          --health-interval=10s 
+          --health-timeout=5s 
+          --health-retries=5
     env:
       EMAIL_HOST_NAME: ${{ secrets.EMAIL_HOST_NAME }}
       EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
