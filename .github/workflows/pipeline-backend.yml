@@ -27,9 +27,6 @@ jobs:
           java-version: 17
           distribution: 'corretto'
 
-      - name: List current directory
-        run: ls -la
-
       - name: Make mvnw Executable
         run: |
           cd book-network-api 
@@ -54,6 +51,11 @@ jobs:
         with:
           java-version: '17'
           distribution: 'corretto'
+
+      - name: Make mvnw Executable
+        run: |
+          cd book-network-api 
+          chmod +x ./mvnw
 
       - name: Running Unit Tests
         run: |
