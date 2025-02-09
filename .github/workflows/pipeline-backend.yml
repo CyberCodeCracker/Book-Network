@@ -39,7 +39,7 @@ jobs:
 
   unit-tests:
     runs-on: self-hosted
-    name: Unit tests
+    name: Unit Tests
     services:
       postgres:
         image: postgres:13
