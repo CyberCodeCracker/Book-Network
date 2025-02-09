@@ -83,7 +83,7 @@ jobs:
 
   build:
     runs-on: self-hosted
-    name: Build backend
+    name: Build Backend
     needs: [compile, unit-tests]
     steps:
       - name: Checkout code
