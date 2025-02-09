@@ -62,7 +62,7 @@ jobs:
           mkdir -p ~/actions-runner/ci-cd
           cp docker-compose.yml ~/actions-runner/ci-cd/
 
-      - name: Deploy Containers
+      - name: Deploy containers
         run: |
           cd ~/actions-runner/ci-cd
           docker compose pull -q
