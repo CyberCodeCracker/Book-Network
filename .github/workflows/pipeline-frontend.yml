@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build & Push to Dockerhub
+      - name: Build & Push To Dockerhub
         uses: docker/build-push-action@v5
         with:
           context: book-network-ui
@@ -72,8 +72,8 @@ jobs:
         run: |
           ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} <<EOF 
           cd ci-cd
-          docker-compose -f docker-compose.yml pull -q
-          docker-compose -f docker-compose.yml up -d
+          docker compose -f docker-compose.yml pull -q
+          docker compose -f docker-compose.yml up -d
           EOF
           
 

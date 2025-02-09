@@ -3,7 +3,7 @@ services:
     container_name: postgres-sql-bsn
     image: postgres
     environment:
-      POSTGRES_USER: postgres
+      POSTGRES_USER: postgres:13
       POSTGRES_PASSWORD: admin
       PGDATA: /var/lib/postgresql/data
       POSTGRES_DB: book_network
@@ -16,7 +16,7 @@ services:
     restart: unless-stopped
   mail-dev:
     container_name: mail-dev-bsn
-    image: souhailamouri/maildev
+    image: maildev/maildev:latest
     ports:
       - 1080:1080
       - 1025:1025
