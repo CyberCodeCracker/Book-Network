@@ -42,7 +42,7 @@ jobs:
     name: Unit Tests
     services:
       postgres:
-        image: postgres:13
+        image: postgres
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: admin
@@ -102,7 +102,7 @@ jobs:
           cd book-network-api 
           chmod +x ./mvnw
 
-      - name: Compile project
+      - name: Compile Project
         run: |
           cd book-network-api
           ./mvnw clean compile
