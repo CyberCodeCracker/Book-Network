@@ -40,7 +40,7 @@ jobs:
     name: Unit Tests
     services:
       postgres:
-        image: postgres:13
+        image: postgres
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: admin
@@ -54,6 +54,10 @@ jobs:
           --health-timeout=5s 
           --health-retries=5
     env:
+      SPRING_PROFILES_ACTIVE: dev  # Explicitly activate profile
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/book_network
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
       EMAIL_HOST_NAME: ${{ secrets.EMAIL_HOST_NAME }}
       EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
       EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
