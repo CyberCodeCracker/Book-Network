@@ -37,10 +37,10 @@ jobs:
           ./mvnw clean compile
   unit-tests:
     runs-on: self-hosted
-    name: Unit Tests
+    name: Unit tests
     services:
       postgres:
-        image: postgres
+        image: postgres:13
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: admin
@@ -54,10 +54,6 @@ jobs:
           --health-timeout=5s 
           --health-retries=5
     env:
-      SPRING_PROFILES_ACTIVE: dev  # Explicitly activate profile
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/book_network
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: admin
       EMAIL_HOST_NAME: ${{ secrets.EMAIL_HOST_NAME }}
       EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
       EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
@@ -83,7 +79,7 @@ jobs:
           ./mvnw clean test
   build:
     runs-on: self-hosted
-    name: Build Backend
+    name: Build backend
     needs: [compile, unit-tests]
     steps:
       - name: Checkout code
