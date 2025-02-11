@@ -27,7 +27,7 @@ jobs:
           java-version: 17
           distribution: 'corretto'
 
-      - name: Make mvnw Executable
+      - name: Make Mvnw Executable
         run: |
           cd book-network-api 
           chmod +x ./mvnw
