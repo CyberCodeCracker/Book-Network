@@ -83,7 +83,7 @@ jobs:
         run: |
           cd book-network-api 
           chmod +x ./mvnw
-      - name: Extract project version
+      - name: Extract Project version
         id: extract_version
         run: |
           cd book-network-api

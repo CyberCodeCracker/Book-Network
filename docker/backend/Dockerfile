@@ -25,11 +25,18 @@ ARG EMAIL_HOST_NAME
 ARG EMAIL_USERNAME
 ARG EMAIL_PASSWORD
 
-ENV DB_URL=jdbc:postgresql://postgres-sql-bsn:5432/book_network
+ENV DB_URL=jdbc:postgresql://postgres:5432/book_network
+ENV DB_USERNAME=postgres
+ENV DB_PASSWORD=admin
 ENV ACTIVE_PROFILE=${PROFILE}
 ENV JAR_VERSION=${APP_VERSION}
 ENV EMAIL_HOST_NAME=${EMAIL_HOST_NAME}
 ENV EMAIL_USERNAME=${EMAIL_USERNAME}
 ENV EMAIL_PASSWORD=${EMAIL_PASSWORD}
 
-CMD java -jar -Dspring.profiles.active=${ACTIVE_PROFILE} -Dspring.datasource.url=${DB_URL} book-network-${JAR_VERSION}.jar
+CMD java -jar \
+  -Dspring.profiles.active=${ACTIVE_PROFILE} \
+  -Dspring.datasource.url=${DB_URL} \
+  -Dspring.datasource.username=${DB_USERNAME} \
+  -Dspring.datasource.password=${DB_PASSWORD} \
+  book-network-${JAR_VERSION}.jar
