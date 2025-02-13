@@ -1,173 +1,45 @@
-name: BSN Backend API Pipeline
-
-on:
-  push:
-    branches:
-      - ci-cd
-    # Triggers pipeline backend when changes are performed in the specific paths
-    paths:
-      - book-network/**
-      - docker/backend/**
-      - '../../docker-compose.yml'
-      - .github/workflows/*-backend.yml
-
-jobs:
-  compile:
-    runs-on: self-hosted
-    name: Compile Project
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Checkouts current branch only
-
-      - name: Setup JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: 17
-          distribution: 'corretto'
-
-      - name: Make mvnw Executable
-        run: |
-          cd book-network-api 
-          chmod +x ./mvnw
-      - name: Running Unit Tests
-        run: |
-          cd book-network-api
-          ./mvnw clean compile
-  unit-tests:
-    runs-on: self-hosted
-    name: Unit Tests
-    services:
-      postgres:
-        image: postgres:13
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: admin
-          POSTGRES_DB: book_network
-        ports:
-          - 5432:5432
-        # Health checks ensure the service is ready before tests run.
-        options: >-
-          --health-cmd="pg_isready -U postgres" 
-          --health-interval=10s 
-          --health-timeout=5s 
-          --health-retries=5
-    env:
-      EMAIL_HOST_NAME: ${{ secrets.EMAIL_HOST_NAME }}
-      EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
-      EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Setup JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'corretto'
-
-      - name: Make Mvnw Executable
-        run: |
-          cd book-network-api 
-          chmod +x ./mvnw
-      - name: Running Unit Tests
-        run: |
-          cd book-network-api
-          ./mvnw clean test
-  build:
-    runs-on: self-hosted
-    name: Build Backend
-    needs: [compile, unit-tests]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Checkouts current branch only
-
-      - name: Setup JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: 17
-          distribution: 'corretto'
-
-      - name: Make mvnw executable
-        run: |
-          cd book-network-api 
-          chmod +x ./mvnw
-      - name: Compile project
-        run: |
-          cd book-network-api
-          ./mvnw clean compile
-  build-image:
-    name: Build Docker image
-    runs-on: self-hosted
-    needs: [build]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Checkouts current branch only
-
-      - name: Setup JDK
-        uses: actions/setup-java@v4
-        with:
-          java-version: 17
-          distribution: 'corretto'
-
-      - name: List current directory
-        run: ls -la
-
-      - name: Make mvnw executable
-        run: |
-          cd book-network-api 
-          chmod +x ./mvnw
-      - name: Extract project version
-        id: extract_version
-        run: |
-          cd book-network-api
-          echo "VERSION=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec)" >> $GITHUB_OUTPUT
-
-      - name: Login to Dockerhub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Build & Push to Dockerhub
-        uses: docker/build-push-action@v5
-        with:
-          context: book-network-api
-          file: docker/backend/Dockerfile
-          push: true
-          platforms: linux/amd64
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/bsn-api:${{ steps.extract_version.outputs.VERSION }},${{ secrets.DOCKERHUB_USERNAME }}/bsn-api:latest
-          build-args: |
-            PROFILE=dev
-            APP_VERSION=${{ steps.extract_version.outputs.VERSION }}
-  deploy:
-    name: Deploy Backend
-    runs-on: self-hosted
-    needs: [build-image]
-    steps:
-      - name: Set Up SSH Agent
-        uses: webfactory/ssh-agent@v0.5.4
-        with:
-          ssh-private-key: ${{ secrets.VPS_PRIVATE_KEY }}
-
-      - name: Copy Docker-Compose File to Target Directory
-        run: |
-          mkdir -p ~/actions-runner/ci-cd
-          cp docker-compose.yml ~/actions-runner/ci-cd/
-      - name: Set ENV variables and deploy
-        run: |
-          ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} <<EOF
-          export EMAIL_HOST_NAME=${{ secrets.EMAIL_HOST_NAME }}
-          export EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME }}
-          export EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}
-          cd ci-cd
-          docker compose -f docker-compose.yml pull -q
-          docker compose -f docker-compose.yml up -d
-          EOF
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/book_network
+    username: postgres
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  mail:
+    host: ${EMAIL_HOST_NAME}
+    port: 465
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+            trust: "*"
+        starttls:
+          enable: true
+    protocol: smtp
+  application:
+    security:
+      jwt:
+        secret-key: 8be67e57a03db3508f223121c50a16a7e9e6fe07ae127d830d827c3160d61d43
+        expiration: 86400000
+    mailing:
+      frontend:
+        activation-url: http://178.215.224.229:4200/activate-account
+    cors:
+      origins: http://localhost:4200,http://localhost:8080,http://178.215.224.229:8088,http://178.215.224.229:8080
+    file:
+      upload:
+        photos-output-path: ./uploads
+server:
+  port: 8088
