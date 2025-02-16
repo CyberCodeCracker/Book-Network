@@ -6,7 +6,7 @@ on:
       - ci-cd
     # Triggers pipeline backend when changes are performed in the specific paths
     paths:
-      - book-network/**
+      - book-network-api/**
       - docker/backend/**
       - '../../docker-compose.yml'
       - .github/workflows/*-backend.yml
@@ -123,7 +123,7 @@ jobs:
         run: |
           mkdir -p ~/actions-runner/ci-cd
           cp docker-compose.yml ~/actions-runner/ci-cd/
-      - name: Set ENV variables and deploy
+      - name: Set ENV Variables and deploy
         run: |
           ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} <<EOF
           export EMAIL_HOST_NAME=${{ secrets.EMAIL_HOST_NAME }}
