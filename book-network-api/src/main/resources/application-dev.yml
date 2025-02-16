@@ -35,9 +35,9 @@ spring:
         expiration: 86400000
     mailing:
       frontend:
-        activation-url: http://178.215.224.229:4200/activate-account
+        activation-url: http://196.251.118.219:4200/activate-account
     cors:
-      origins: http://localhost:4200,http://localhost:8080,http://178.215.224.229:8088,http://178.215.224.229:8080
+      origins: http://localhost:4200,http://localhost:8080,http://196.251.118.219:8088,http://196.251.118.219:8080
     file:
       upload:
         photos-output-path: ./uploads

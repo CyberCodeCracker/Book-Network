@@ -61,7 +61,7 @@ jobs:
           cd book-network-api
           ./mvnw clean compile
   build-image:
-    name: Build Docker image
+    name: Build Docker Image
     runs-on: self-hosted
     needs: [build]
     steps:
