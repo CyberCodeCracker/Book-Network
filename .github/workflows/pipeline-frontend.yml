@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Extract Project version
+      - name: Extract Project Version
         id: extract_version
         run: | 
           cd book-network-ui

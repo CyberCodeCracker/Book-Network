@@ -63,6 +63,8 @@ public class AuthenticationService {
                 ;
         userRepository.save(user);
         System.out.println("Hostname is: " + emailHostname);
+        System.out.println("Username is: " + emailUsername);
+        System.out.println("Password is: " + emailPassword);
         System.out.println();
         sendValidationEmail(user);
     }
