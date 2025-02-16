@@ -57,7 +57,7 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.VPS_PRIVATE_KEY }}
 
-      - name: Copy Docker-Compose File To Target Directory
+      - name: Copy Docker-Compose File tco Target Directory
         run: |
           mkdir -p ~/actions-runner/ci-cd
           cp docker-compose.yml ~/actions-runner/ci-cd/
