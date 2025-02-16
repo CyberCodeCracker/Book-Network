@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - ci-cd
-    # Triggers pipeline backend when changes are performed in the specific paths
+    # Triggers pipeline frontend when changes are performed in the specific paths
     paths:
       - book-network-ui/**
       - docker/frontend/**
