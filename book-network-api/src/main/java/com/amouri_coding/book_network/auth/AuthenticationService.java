@@ -35,6 +35,9 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
 
+    @Value("${spring.mail.host}")
+    private String emailHostname;
+
     @Value("${spring.application.mailing.frontend.activation-url}")
     private String activationUrl;
 
@@ -53,6 +56,7 @@ public class AuthenticationService {
                 .build()
                 ;
         userRepository.save(user);
+        System.out.println("Hostname is: " + emailHostname);
         sendValidationEmail(user);
     }
 
