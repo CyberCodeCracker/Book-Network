@@ -22,7 +22,7 @@ services:
       - 1025:1025
   bsn-api:
     container_name: bsn-api
-    image: souhailamouri/bsn-api:1.0.5
+    image: souhailamouri/bsn-api:latest
     ports:
       - 8088:8088
     networks:
@@ -31,7 +31,7 @@ services:
       - postgres
   bsn-ui:
     container_name: bsn-ui
-    image: souhailamouri/bsn-ui:latest
+    image: souhailamouri/bsn-ui:1.0.5
     ports:
       - 8080:80
     networks:
