@@ -38,6 +38,12 @@ public class AuthenticationService {
     @Value("${spring.mail.host}")
     private String emailHostname;
 
+    @Value("${spring.mail.username}")
+    private String emailUsername;
+
+    @Value("${spring.mail.password}")
+    private String emailPassword;
+
     @Value("${spring.application.mailing.frontend.activation-url}")
     private String activationUrl;
 
@@ -57,6 +63,7 @@ public class AuthenticationService {
                 ;
         userRepository.save(user);
         System.out.println("Hostname is: " + emailHostname);
+        System.out.println();
         sendValidationEmail(user);
     }
 
