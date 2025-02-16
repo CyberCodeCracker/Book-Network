@@ -26,7 +26,7 @@ jobs:
           cd book-network-ui
           echo "VERSION=$(jq -r '.version' package.json)" >>$GITHUB_OUTPUT
 
-      - name: Login to Dockerhub
+      - name: Login To Dockerhub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
