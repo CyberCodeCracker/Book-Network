@@ -125,7 +125,7 @@ jobs:
           cp docker-compose.yml ~/actions-runner/ci-cd/
       - name: Set ENV variables and deploy
         run: |
-          ssh ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} <<EOF
+          ssh -i ${{ secrets.VPS_PRIVATE_KEY }} ${{ secrets.VPS_USERNAME }}@${{ secrets.VPS_IP }} <<EOF
           export EMAIL_HOST_NAME=${{ secrets.EMAIL_HOST_NAME }}
           export EMAIL_USERNAME=${{ secrets.EMAIL_USERNAME }}
           export EMAIL_PASSWORD=${{ secrets.EMAIL_PASSWORD }}
