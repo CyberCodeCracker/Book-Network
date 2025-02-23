@@ -39,7 +39,6 @@ public class User implements UserDetails, Principal {
     private LocalDate birthDate;
     @Column(unique = true)
     private String email;
-    @Column(name = "password")
     private String password;
     private boolean accountLocked;
     private boolean enabled;

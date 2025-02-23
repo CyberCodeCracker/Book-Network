@@ -59,13 +59,11 @@ public class AuthenticationService {
                 .build()
                 ;
         userRepository.save(user);
-        System.out.println("Hostname is: " + emailHostname);
         sendValidationEmail(user);
     }
 
     private void sendValidationEmail(User user) throws MessagingException {
         var newToken = generateAndSaveActivationToken(user);
-        System.out.println("Username is: " + emailHostname);
         emailService.sendEmail(
                 user.getEmail(),
                 user.fullName(),
