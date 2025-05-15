@@ -7,7 +7,7 @@
 - [Technologies Used](#technologies-used)
     - [Backend (book-social-network)](#backend-book-social-network)
     - [Frontend (book-social-network-ui)](#frontend-book-social-network-ui)
-- [Learned Objectives](#learning-objectives)
+- [Learned Objectives](#learned-objectives)
 - [Acknowledgments](#acknowledgments)
 
 ## Overview
@@ -23,18 +23,6 @@ Book Social Network is a full-stack application that enables users to manage the
 - Book Borrowing: Implements necessary checks to determine if a book is borrowable.
 - Book Returning: Users can return borrowed books.
 - Book Return Approval: Functionality to approve book returns.
-
-#### Class diagram
-![Class diagram](screenshots/class-diagram.png)
-
-#### Spring security diagram
-![Security diagram](screenshots/security.png)
-
-#### Backend pipeline
-![Security diagram](screenshots/be-pipeline.png)
-
-#### Backend pipeline
-![Security diagram](screenshots/fe-pipeline.png)
 
 ## Technologies Used
 
